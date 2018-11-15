@@ -17,9 +17,11 @@ int main()
 	PushBack(&sq, 8);
 	PushBack(&sq, 9);
 	Print(&sq);
-	//SeqListRemoveAll(&sq, 2);
-	BubbleSort(&sq);
+	SeqListRemoveAll(&sq, 2);
 	Print(&sq);
+	//SeqListRemoveAll(&sq, 2);
+	//BubbleSort(&sq);
+	//Print(&sq);
 
 
 

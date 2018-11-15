@@ -2,7 +2,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<assert.h>
-
+#include<string.h>
 
 
 //初始化
@@ -77,7 +77,6 @@ void SeqListInsert(SeqList*pSeq, int pos, DataType data)
 	{
 		printf("插入位置有误\n");
 		return;
-		//exit(1);//这里究竟应该用哪个？
 	}
 	//先将pos位置后的元素依次向后搬移
 	for (int i = pSeq->_size - 1; i >= pos; i--)
@@ -228,15 +227,71 @@ void _CheckCapacity(SeqList*pSeq)
 }
 
 //删除顺序表中所有值为data的元素
+//方法一：每次找到一个，则删除；缺点：每次都要从头开始遍历，时间复杂度太高
+//void SeqListRemoveAll(SeqList*pSeq, DataType data)
+//{
+//	assert(pSeq);
+//	for (int i = 0; i < pSeq->_size; i++)
+//	{
+//		SeqListRemove(pSeq, data);
+//	}
+//}
+
+//删除顺序表中所有值为data的元素
+//方法二：借助辅助空间
+//开辟n个元素的空间，整体遍历一遍元素序列，
+//（1）如果是要删除的元素，就不管；
+//（2）如果不是要删除的元素，拷贝到新数组；
+//最后再把新空间的元素都拷贝到原空间，再释放新开辟的空间
+//void SeqListRemoveAll(SeqList*pSeq, DataType data)
+//{
+//	if (pSeq == NULL)
+//	{
+//		exit(0);
+//	}
+//	DataType*pData = (DataType*)malloc(sizeof(DataType)*pSeq->_size);
+//	int count = 0;
+//	for (int i = 0; i < pSeq->_size; i++)
+//	{
+//		if (pSeq->_pData[i] != data)
+//		{
+//			pData[count] = pSeq->_pData[i];
+//			count++;
+//		}
+//	}
+//	memcpy(pSeq->_pData, pData, sizeof(DataType)*count);
+//	pSeq->_size =count;
+//	free(pData);
+//}
+
+
+
+//删除顺序表中所有值为data的元素
+//方法三：不需要借助任何辅助空间，效率最高
+//定义一个计数器，记录当前遇到的要删除的元素的个数
+//（1）遇到：说明之后的元素要搬移；count记录搬移次数
+//（2）没遇到：说明之后的元素不搬移，当前元素向前搬移i - count
 void SeqListRemoveAll(SeqList*pSeq, DataType data)
 {
-	assert(pSeq);
+	if (pSeq == NULL)
+	{
+		exit(0);
+	}
+	int count = 0;//记录要删除的元素出现的个数
 	for (int i = 0; i < pSeq->_size; i++)
 	{
-		SeqListRemove(pSeq, data);
+		
+		if (pSeq->_pData[i] == data)
+		{
+			count++;
+		}
+		else
+		{
+			pSeq->_pData[i - count] = pSeq->_pData[i];
+		}
 	}
+	pSeq->_size -= count;
 }
-
 
 //用冒泡排序的方式对顺序表中的元素进行排序
 void BubbleSort(SeqList*pSeq)
