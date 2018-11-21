@@ -25,30 +25,7 @@ SLDataType Front(SListNode*pList);//取首元素
 SLDataType Back(SListNode*pList);//取尾元素
 void SListRemove(SListNode**pList, SLDataType data);//删除指定元素的节点
 void SListRemoveAll(SListNode**pList,SLDataType data);//删除元素为data的所有节点
-
-
-//typedef int SLDataType;
-//typedef struct SListNode
-//{
-//	SLDataType _data;
-//	struct SListNode*_pNext;
-//}SListNode;
-
-
-//void SListInit(SListNode**pHead);
-//void SListPushBack(SListNode*pHead, SLDataType data);
-//void SListPopBack(SListNode**pHead);
-//void SListPushFront(SListNode**pHead, SLDataType data);
-//void SListPopFront(SListNode**pHead, SLDataType data);
-//SListNode*SListFind(SListNode*pHead, SLDataType data);
-//void SListInsert(SListNode*pos, SLDataType data);
-//void SListErase(SListNode**pHead, SListNode*pos);//要把pHead给过来，因为如果删的节点是第一个节点
-//void SListDestory(SListNode**pHead);
-//int SListSize(SListNode*pHead);
-//int SListEmpty(SListNode*pHead);
-//SLDataType Front(SListNode*pHead);
-//SLDataType Back(SListNode*pHead);
-//void SListRemove()
+void BubbleSort(SListNode*pList);//冒泡排序
 
 
 

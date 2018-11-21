@@ -340,5 +340,44 @@ void SListRemoveAll(SListNode**pList, SLDataType data)
 }
 
 
+//冒泡排序思路：
+//每一趟比较：定义两个指针，用于比较元素，进行交换。每一趟都能把一个元素归到最后一位
+//总共趟数的控制：定义一个ptail指针，限定比较范围
+void Swap(SListNode* pre, SListNode* cur)
+{
+	SLDataType tmp;
+	tmp = pre->_data;
+	pre->_data = cur->_data;
+	cur->_data = tmp;
+}
+void BubbleSort(SListNode*pList)
+{
+	//如果链表为空或者只有一个节点
+	if (pList == NULL || pList->_pNext == NULL)
+	{
+		return;
+	}
+	SListNode*ptail = NULL;
+	while (ptail != pList)//控制总趟数
+	{
+		//一趟排序
+		SListNode*pre = pList;
+		SListNode*cur = pre->_pNext;
+		while (cur!=ptail)
+		{
+			if (pre->_data > cur->_data)
+			{
+				Swap(pre, cur);	
+			}
+			pre = cur;
+			cur = cur->_pNext;
+		}
+		ptail = pre;//每一趟结束后ptail的位置都要更新
+	}
+	
+
+}
+
+
 
 
