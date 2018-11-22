@@ -375,7 +375,6 @@ void BubbleSort(SListNode*pList)
 		ptail = pre;//每一趟结束后ptail的位置都要更新
 	}
 	
-
 }
 
 
