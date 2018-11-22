@@ -11,6 +11,8 @@ int main()
 	DListPushBack(plist, 2);
 	DListPushBack(plist, 3);
 	DListPushBack(plist, 4);
+	DListPushBack(plist, 5);
+	DListPushBack(plist, 6);
 	DListPrint(plist);
 
 
