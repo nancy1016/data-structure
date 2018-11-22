@@ -27,7 +27,7 @@ void DListPrint(DListNode*plist);
 
 
 
-//老师写的
+//另一种定义方式
 //typedef int DLDataType;
 //typedef struct DListNode
 //{
