@@ -1,0 +1,113 @@
+#include"DList.h"
+#include<stdio.h>
+#include<stdlib.h>
+#include<assert.h>
+
+DListNode*BuyDListNode(DataType data)
+{
+	DListNode*pNewNode = (DListNode*)malloc(sizeof(DListNode));
+	if (pNewNode == NULL)
+	{
+		exit(1);
+	}
+	pNewNode->_data = data;
+	pNewNode->_pPre = NULL;
+	pNewNode->_pNext = NULL;
+	return pNewNode;
+
+}
+void DListInit(DListNode**plist)
+{
+	assert(plist);
+	DListNode*pHead = BuyDListNode(0);
+	pHead->_pNext = pHead;
+	pHead->_pPre = pHead;
+	*plist = pHead;
+}
+
+void DListPushBack(DListNode*plist, DataType data)
+{
+	//思路：plist因为指向的是首节点，只用于固定链表的起始位置，其他元素都是直接插在plist之后
+	//连接节点的思想：要找到当前最后一个节点，修改4个指针域
+	//具体先断开哪个节点：始终把握“找当前最后一个节点位置”使用完毕后，再断开原连接
+	DListNode*pNewNode = BuyDListNode(data);
+	plist->_pPre->_pNext = pNewNode;
+	pNewNode->_pPre = plist->_pPre;
+	pNewNode->_pNext = plist;
+	plist->_pPre = pNewNode;
+
+}
+
+//尾删
+void DListPopBack(DListNode*plist)
+{
+	//这里不用分情况讨论head后面只有一个节点还是多个节点，因为head始终在最前面，不会被删
+		plist->_pPre->_pPre->_pNext = plist;
+		plist->_pPre = plist->_pPre->_pPre;
+}
+
+
+//头插
+void DListPushFront(DListNode*plist, DataType data)
+{
+	//思路:找到当前第一个节点（即头结点后面的那个节点）然后连接
+	//连接方式：先连接后面，再连接前面
+	DListNode*pNewNode = BuyDListNode(data);
+	pNewNode->_pNext = plist->_pNext;
+	plist->_pNext->_pPre = pNewNode;
+	plist->_pNext = pNewNode;
+	pNewNode->_pPre = plist;
+
+}
+
+
+//头删
+void DListPopFront(DListNode*plist)
+{
+
+}
+
+//打印
+void DListPrint(DListNode*plist)
+{
+	DListNode*cur = plist->_pNext;
+	while (cur != plist)
+	{
+		printf("%d->", cur->_data);
+		cur = cur->_pNext;
+	}
+	printf("NULL\n");
+}
+
+
+
+
+//老师写的
+//DListNode*BuyDListNode(DLDataType data)
+//{
+//
+//}
+//
+//void ListInit(DList*plist)
+//{
+//
+//}
+//
+//void ListPushBack(DList*plist, DLDataType x)
+//{
+//	DListNode*pNewNode = BuyDListNode(x);
+//	pNewNode->_pPre = plist->_pHead->_pPre;
+//	pNewNode->_pNext = plist->_pHead;
+//	plist->_pHead->_pPre = pNewNode;
+//	pNewNode->_pPre->_pNext = pNewNode;
+//}
+//
+//void ListPopBack(DList*plist)
+//{
+//
+//}
+//
+//void ListPushFront(DList*plist, DLDataType x)
+//{
+//
+//}
